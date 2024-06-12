@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/style.css">
+    <title>Игра!</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="txt_head">Игра </div>
+            <div class="head_logo">
+                <img src="img/лого.png" alt="logo" width="100px" height="60px">
+            </div>
+            <div><button type="button" id="reset">Новая игра</button></div>
+        </header>
+        <main>
+            <div class="container">
+                <div>Я загадал число от <strong>1</strong> до <strong>100</strong><br><br>Попробуй его угадать!</div>
+                <div><input type="number" id="guess"></div>
+                <div><button type="button" id="submit">Угадать</button></div>
+                <div id="result">Введи число</div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Сгенерировать случайное число
+            let randomNumber = Math.floor(Math.random() * 100) + 1;
+            console.log(randomNumber + 10);
+
+            // Получить элементы DOM
+            const guessInput = document.getElementById('guess');
+            const submitButton = document.getElementById('submit');
+            const resultElement = document.getElementById('result');
+            const resetButton = document.getElementById('reset');
+
+            // Добавить обработчик события для кнопки
+            submitButton.addEventListener('click', () => {
+                // Получить предположение пользователя
+                const guess = parseInt(guessInput.value);
+
+                // Проверка
+                if (guess == randomNumber) {
+                    resultElement.textContent = 'Поздравляю! Ты угадал число.';
+                    console.log("Угадал");
+                } else if (guess < randomNumber) {
+                    resultElement.textContent = 'Твое число меньше загаданного.';
+                    console.log("Не угадал(<)");
+                } else if (guess > randomNumber) {
+                    resultElement.textContent = 'Твое число больше загаданного.';
+                    console.log("Не угадал(>)");
+                }
+            });
+            // Добавить обработчик события для кнопки "Начать новую игру"
+            resetButton.addEventListener('click', () => {
+                // Сгенерировать новое случайное число
+                randomNumber = Math.floor(Math.random() * 100) + 1;
+
+                // Очистить поле ввода и результат
+                guessInput.value = '';
+                resultElement.textContent = '';
+            });
+        });
+    </script>
+</body>
+
+</html>
